@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://147.185.221.22:36870";
+const API_URL = "https://female-keslie-ayaani12-885e5bbe.koyeb.app";
 
 export async function signUp({ username, email, password }) {
   try {
@@ -27,7 +27,8 @@ export async function signUp({ username, email, password }) {
 export const signIn = async (credentials) => {
   try {
     const response = await axios.post(`${API_URL}/users/signin`, credentials);
-
+    console.log(response.data);
+    
     localStorage.setItem("loginToken", response.data.access_token);
     return { success: true, token: response.data.access_token };
   } catch (error) {
