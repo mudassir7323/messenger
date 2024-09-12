@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://female-keslie-ayaani12-885e5bbe.koyeb.app";
+const API_URL = "https://awful-rhinoceros-ayaani12-95861aee.koyeb.app";
 
 export async function signUp({ username, email, password }) {
   try {
