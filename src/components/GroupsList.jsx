@@ -1,5 +1,6 @@
 import React from "react";
 import "./scroller.css";
+import { useNavigate } from "react-router-dom";
 import { FaUserPlus, FaUsers } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedGroup } from "../redux/features/chatslice";
@@ -7,19 +8,18 @@ import { setSelectedGroup } from "../redux/features/chatslice";
 function GroupList() {
   const dispatch = useDispatch();
   const list = useSelector((state) => state.chat.filteredGroups);
+  const Navigate = useNavigate();
 
   const manageSelect = (group) => {
     dispatch(setSelectedGroup(group));
   };
 
   const handleCreateGroup = () => {
-    // Add your logic for creating a new group
-    console.log("Create new group");
+    Navigate("/formgroup")
   };
 
   const handleJoinGroup = () => {
-    // Add your logic for joining a group
-    console.log("Join group");
+    Navigate("/joingroup")
   };
 
   return (

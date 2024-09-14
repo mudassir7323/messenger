@@ -8,8 +8,9 @@ import App from "./App";
 import "./index.css";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import GroupJoin from "./components/pages/GroupJoin";
+import GroupForm from "./components/pages/GroupForm";
 
-// Define the routes using createBrowserRouter
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,7 +24,14 @@ const router = createBrowserRouter([
         path: "/home",
         element: <Home />,
       },
-
+      {
+        path: "/joingroup",
+        element: <GroupJoin />,
+      },
+      {
+        path: "/formgroup",
+        element: <GroupForm />,
+      },
       {
         path: "/Login",
         element: <Login />,
