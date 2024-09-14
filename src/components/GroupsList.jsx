@@ -1,4 +1,5 @@
 import React from "react";
+import "./scroller.css"
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedGroup } from "../redux/features/chatSlice";
 
@@ -12,7 +13,7 @@ function GroupList() {
 
   return (
     <div className="flex flex-col p-4 h-full bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300">
-      <div className="flex flex-col h-full overflow-y-scroll">
+      <div className="flex flex-col h-full overflow-y-scroll custom-scrollbar">
         {list.map((item, index) => (
           <div
             key={index}
