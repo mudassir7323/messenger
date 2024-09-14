@@ -7,7 +7,6 @@ function GroupForm() {
   const [groupImageBinary, setGroupImageBinary] = useState(null); // To store the binary data of the image
   const navigate = useNavigate();
 
-  // Resize the image using a canvas to reduce the file size
   const resizeImage = (file, maxWidth, maxHeight, callback) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -40,10 +39,9 @@ function GroupForm() {
         const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, width, height);
 
-        // Convert canvas to binary (Base64)
         canvas.toBlob((blob) => {
           callback(blob);
-        }, "image/jpeg", 0.7); // Reduce quality to compress the image further
+        }, "image/jpeg", 0.7); 
       };
     };
 
@@ -52,12 +50,10 @@ function GroupForm() {
     };
   };
 
-  // Function to handle image upload and resize
   const handleImageUpload = (e) => {
-    const file = e.target.files[0]; // Get the uploaded file
+    const file = e.target.files[0]; 
     if (file) {
-      // Check if the file size is too large
-      if (file.size > 5 * 1024 * 1024) { // 5 MB limit
+      if (file.size > 5 * 1024 * 1024) { 
         alert("File size exceeds 5 MB. Please upload a smaller image.");
         return;
       }
@@ -82,26 +78,23 @@ function GroupForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Prepare the form data
     const formData = {
       name: groupName,
-      icon: groupImageBinary ? btoa(String.fromCharCode(...new Uint8Array(groupImageBinary))) : "", // Convert binary to base64
+      icon: groupImageBinary ? btoa(String.fromCharCode(...new Uint8Array(groupImageBinary))) : "", 
     };
 
-    // Send a POST request to the API
     fetch("https://awful-rhinoceros-ayaani12-95861aee.koyeb.app/groups/groups", {
       method: "POST",
       headers: {
         "accept": "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("loginToken")}`, // Retrieve token from localStorage
+        "Authorization": `Bearer ${localStorage.getItem("loginToken")}`, 
       },
-      body: JSON.stringify(formData), // Convert formData to JSON string
+      body: JSON.stringify(formData), 
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        // Navigate back to the home page or show success message
         navigate("/home");
       })
       .catch((error) => {
