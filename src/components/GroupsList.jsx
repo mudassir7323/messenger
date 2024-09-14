@@ -1,7 +1,7 @@
 import React from "react";
 import "./scroller.css"
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectedGroup } from "../redux/features/chatSlice";
+import { setSelectedGroup } from "../redux/features/chatslice";
 
 function GroupList() {
   const dispatch = useDispatch(); 
