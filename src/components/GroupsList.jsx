@@ -35,9 +35,9 @@ function GroupList() {
         },
       })
       .then((response) => {
-        console.log(response.data);
-
         dispatch(setFilteredGroups(response.data));
+        console.log(response.data);
+        
       })
       .catch((error) => {
         console.error("There was an error making the GET request:", error);
@@ -53,9 +53,9 @@ function GroupList() {
             className="flex items-center p-3 mb-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer"
             onClick={() => manageSelect(item)}
           >
-            {item.image ? (
+            {item.icon ? (
               <img
-                src={`data:image/jpeg;base64,${item.image}`}
+                src={`data:image/jpeg;base64,${item.icon}`}
                 alt={item.name}
                 className="w-12 h-12 rounded-full object-cover mr-3"
               />

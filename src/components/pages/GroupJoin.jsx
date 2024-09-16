@@ -4,14 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 function GroupJoin() {
   const [groupName, setGroupName] = useState("");
-  const [groupDescription, setGroupDescription] = useState("");
+  const [groupCode, setGroupCode] = useState("");
   const Navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Implement your form submission logic here
     console.log("Group Name:", groupName);
-    console.log("Group Description:", groupDescription);
+    console.log("Group Description:", groupCode);
   };
 
   return (
@@ -46,18 +45,19 @@ function GroupJoin() {
           </div>
           <div className="mb-4">
             <label
-              htmlFor="groupDescription"
+              htmlFor="groupCode"
               className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
             >
-              Group Description
+              Group Code
             </label>
-            <textarea
-              id="groupDescription"
-              value={groupDescription}
-              onChange={(e) => setGroupDescription(e.target.value)}
+            <input
+              type="text"
+              id="groupCode"
+              value={groupCode}
+              onChange={(e) => setGroupCode(e.target.value)}
               className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:text-gray-200"
-              placeholder="Enter group description"
-              rows="4"
+              placeholder="Enter group Code"
+              required
             />
           </div>
           <button

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { IoSendSharp } from "react-icons/io5";
+import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 
 function Chatbox() {
@@ -8,7 +9,6 @@ function Chatbox() {
   const chatContentRef = useRef(null);
   const [input, setInput] = useState("");
 
-  // Auto-scroll to the bottom of the chat when messages update
   useEffect(() => {
     if (chatContentRef.current) {
       chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
@@ -53,11 +53,21 @@ function Chatbox() {
     <div className="flex-1 bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col h-[calc(100vh-160px)]">
       {/* Group Header */}
       <div className="flex items-center mb-4 bg-gray-800 p-3 rounded-lg">
-        <img
-          src={selectedGroup.image}
-          alt={selectedGroup.name}
-          className="w-12 h-12 rounded-full object-cover mr-4 border-2 border-indigo-500"
-        />
+        
+        {selectedGroup.icon ? (
+              <img
+                src={`data:image/jpeg;base64,${selectedGroup.icon}`}
+                alt={selectedGroup.name}
+                className="w-12 h-12 rounded-full object-cover mr-3"
+              />
+            ) : (
+              <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 mr-3">
+                <CgProfile
+                  className="text-gray-500 dark:text-gray-400"
+                  size={48}
+                />
+              </div>
+            )}
         <h2 className="text-white text-2xl font-bold">{selectedGroup.name}</h2>
       </div>
 
