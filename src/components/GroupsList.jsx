@@ -1,9 +1,13 @@
 import React from "react";
 import "./scroller.css";
+import axios from "axios";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserPlus, FaUsers } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedGroup } from "../redux/features/chatslice";
+import { setFilteredGroups } from "../redux/features/chatslice";
 
 function GroupList() {
   const dispatch = useDispatch();
@@ -15,12 +19,30 @@ function GroupList() {
   };
 
   const handleCreateGroup = () => {
-    Navigate("/formgroup")
+    Navigate("/formgroup");
   };
 
   const handleJoinGroup = () => {
-    Navigate("/joingroup")
+    Navigate("/joingroup");
   };
+
+  useEffect(() => {
+    axios
+      .get("https://awful-rhinoceros-ayaani12-95861aee.koyeb.app/groups/", {
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+
+        dispatch(setFilteredGroups(response.data));
+      })
+      .catch((error) => {
+        console.error("There was an error making the GET request:", error);
+      });
+  }, []);
 
   return (
     <div className="flex flex-col h-full p-2 bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300">
@@ -31,11 +53,20 @@ function GroupList() {
             className="flex items-center p-3 mb-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer"
             onClick={() => manageSelect(item)}
           >
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-12 h-12 rounded-full object-cover mr-3"
-            />
+            {item.image ? (
+              <img
+                src={`data:image/jpeg;base64,${item.image}`}
+                alt={item.name}
+                className="w-12 h-12 rounded-full object-cover mr-3"
+              />
+            ) : (
+              <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 mr-3">
+                <CgProfile
+                  className="text-gray-500 dark:text-gray-400"
+                  size={48}
+                />
+              </div>
+            )}
             <div className="flex flex-col">
               <span className="text-lg font-semibold text-gray-900 dark:text-gray-200">
                 {item.name}
