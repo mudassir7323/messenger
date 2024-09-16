@@ -4,7 +4,8 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 
 function GroupForm() {
   const [groupName, setGroupName] = useState("");
-  const [groupImageBinary, setGroupImageBinary] = useState(null); // To store the binary data of the image
+  const [groupImageBinary, setGroupImageBinary] = useState(null);
+  const [loading, setLoading] = useState(false); // Added loading state
   const navigate = useNavigate();
 
   const resizeImage = (file, maxWidth, maxHeight, callback) => {
@@ -20,7 +21,6 @@ function GroupForm() {
         let width = img.width;
         let height = img.height;
 
-        // Maintain aspect ratio
         if (width > height) {
           if (width > maxWidth) {
             height = (height * maxWidth) / width;
@@ -41,7 +41,7 @@ function GroupForm() {
 
         canvas.toBlob((blob) => {
           callback(blob);
-        }, "image/jpeg", 0.7); 
+        }, "image/jpeg", 0.7);
       };
     };
 
@@ -51,9 +51,9 @@ function GroupForm() {
   };
 
   const handleImageUpload = (e) => {
-    const file = e.target.files[0]; 
+    const file = e.target.files[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) { 
+      if (file.size > 5 * 1024 * 1024) {
         alert("File size exceeds 5 MB. Please upload a smaller image.");
         return;
       }
@@ -64,7 +64,7 @@ function GroupForm() {
 
         reader.onload = () => {
           const arrayBuffer = reader.result;
-          setGroupImageBinary(arrayBuffer); // Set the resized binary data
+          setGroupImageBinary(arrayBuffer);
           console.log("Resized image binary data:", arrayBuffer);
         };
 
@@ -78,9 +78,11 @@ function GroupForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setLoading(true); // Set loading to true
+
     const formData = {
       name: groupName,
-      icon: groupImageBinary ? btoa(String.fromCharCode(...new Uint8Array(groupImageBinary))) : "", 
+      icon: groupImageBinary ? btoa(String.fromCharCode(...new Uint8Array(groupImageBinary))) : "",
     };
 
     fetch("https://awful-rhinoceros-ayaani12-95861aee.koyeb.app/groups/groups", {
@@ -88,9 +90,9 @@ function GroupForm() {
       headers: {
         "accept": "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("loginToken")}`, 
+        "Authorization": `Bearer ${localStorage.getItem("loginToken")}`,
       },
-      body: JSON.stringify(formData), 
+      body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -99,6 +101,9 @@ function GroupForm() {
       })
       .catch((error) => {
         console.error("Error:", error);
+      })
+      .finally(() => {
+        setLoading(false); // Set loading to false
       });
   };
 
@@ -142,16 +147,42 @@ function GroupForm() {
             <input
               type="file"
               id="groupImage"
-              onChange={handleImageUpload} // Handle image upload
+              onChange={handleImageUpload}
               className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:text-gray-200"
-              accept="image/*" // Only allow image files
+              accept="image/*"
             />
           </div>
           <button
             type="submit"
-            className="w-full py-3 px-4 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition duration-300"
+            disabled={loading} // Disable button while loading
+            className={`w-full py-3 px-4 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition duration-300 ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           >
-            Create Group
+            {loading ? (
+              <svg
+                className="animate-spin h-5 w-5 text-white mx-auto"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                ></path>
+              </svg>
+            ) : (
+              "Create Group"
+            )}
           </button>
         </form>
       </div>

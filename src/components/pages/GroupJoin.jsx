@@ -1,16 +1,49 @@
 import React, { useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function GroupJoin() {
   const [groupName, setGroupName] = useState("");
   const [groupCode, setGroupCode] = useState("");
-  const Navigate = useNavigate();
+  const [loading, setLoading] = useState(false); // Added loading state
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Group Name:", groupName);
-    console.log("Group Description:", groupCode);
+
+    if (!groupName || !groupCode) {
+      // Add validation if necessary
+      return;
+    }
+
+    setLoading(true); // Set loading to true
+
+    axios
+      .post(
+        'https://awful-rhinoceros-ayaani12-95861aee.koyeb.app/groups/join/342342',
+        {
+          groupCode: groupCode, // Use the groupCode state
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+            accept: "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        // Handle successful response
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error response
+      })
+      .finally(() => {
+        setLoading(false); // Set loading to false
+      });
   };
 
   return (
@@ -18,7 +51,7 @@ function GroupJoin() {
       <IoMdArrowRoundBack
         className="absolute top-3 left-3 size-8 text-gray-700 dark:text-gray-300 cursor-pointer"
         onClick={() => {
-            Navigate("/home")
+          navigate("/home");
         }}
       />
       <div className="w-full max-w-lg p-8 m-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
@@ -62,9 +95,35 @@ function GroupJoin() {
           </div>
           <button
             type="submit"
-            className="w-full py-3 px-4 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition duration-300"
+            disabled={loading} // Disable button while loading
+            className={`w-full py-3 px-4 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition duration-300 ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           >
-            Join Group
+            {loading ? (
+              <svg
+                className="animate-spin h-5 w-5 text-white mx-auto"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                ></path>
+              </svg>
+            ) : (
+              "Join Group"
+            )}
           </button>
         </form>
       </div>

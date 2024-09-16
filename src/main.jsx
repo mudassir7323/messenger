@@ -10,6 +10,7 @@ import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import GroupJoin from "./components/pages/GroupJoin";
 import GroupForm from "./components/pages/GroupForm";
+import ProtectedRoute from "./components/ProtectedRoute"; // Import the ProtectedRoute component
 
 const router = createBrowserRouter([
   {
@@ -21,24 +22,24 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "/home",
-        element: <Home />,
-      },
-      {
-        path: "/joingroup",
-        element: <GroupJoin />,
-      },
-      {
-        path: "/formgroup",
-        element: <GroupForm />,
-      },
-      {
-        path: "/Login",
+        path: "/login",
         element: <Login />,
       },
       {
-        path: "/SignUp",
+        path: "/signup",
         element: <SignUp />,
+      },
+      {
+        path: "/home",
+        element: <ProtectedRoute element={<Home />} />, // Protect this route
+      },
+      {
+        path: "/joingroup",
+        element: <ProtectedRoute element={<GroupJoin />} />, // Protect this route
+      },
+      {
+        path: "/formgroup",
+        element: <ProtectedRoute element={<GroupForm />} />, // Protect this route
       },
     ],
   },
