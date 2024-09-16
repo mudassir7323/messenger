@@ -21,10 +21,7 @@ function GroupJoin() {
 
     axios
       .post(
-        'https://awful-rhinoceros-ayaani12-95861aee.koyeb.app/groups/join/342342',
-        {
-          groupCode: groupCode, // Use the groupCode state
-        },
+        `https://awful-rhinoceros-ayaani12-95861aee.koyeb.app/groups/join/${groupCode}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
