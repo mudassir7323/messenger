@@ -86,7 +86,7 @@ function GroupForm() {
       icon: groupImageBinary ? btoa(String.fromCharCode(...new Uint8Array(groupImageBinary))) : "",
     };
 
-    fetch(`http://${api_URL}/groups/groups`, {
+    fetch(`${api_URL}/groups/groups`, {
       method: "POST",
       headers: {
         "accept": "application/json",

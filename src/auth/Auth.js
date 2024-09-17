@@ -2,6 +2,8 @@ import axios from "axios";
 import { api_URL } from "../redux/features/variables";
 
 const API_URL = api_URL;
+console.log(API_URL);
+
 
 export async function signUp({ username, email, password }) {
   try {

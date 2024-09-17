@@ -29,7 +29,7 @@ function GroupList() {
 
   useEffect(() => {
     axios
-      .get(`http://${api_URL}/groups/`, {
+      .get(`${api_URL}/groups/`, {
         headers: {
           accept: "application/json",
           Authorization: `Bearer ${localStorage.getItem("loginToken")}`,

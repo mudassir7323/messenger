@@ -25,7 +25,7 @@ function GroupJoin() {
 
     axios
       .post(
-        `http://${api_URL}/groups/join/${groupCode}`,
+        `${api_URL}/groups/join/${groupCode}`,
         {},
         {
           headers: {
