@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { api_URL } from "../../redux/features/variables";
 
 function GroupJoin() {
   const [groupName, setGroupName] = useState("");
@@ -24,7 +25,7 @@ function GroupJoin() {
 
     axios
       .post(
-        `150.230.233.10:8000${groupCode}`,
+        `http://${api_URL}/groups/join/${groupCode}`,
         {},
         {
           headers: {

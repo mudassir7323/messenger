@@ -1,5 +1,6 @@
 import React from "react";
 import "./scroller.css";
+import { api_URL } from "../redux/features/variables";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +29,7 @@ function GroupList() {
 
   useEffect(() => {
     axios
-      .get("150.230.233.10:8000", {
+      .get(`http://${api_URL}/groups/`, {
         headers: {
           accept: "application/json",
           Authorization: `Bearer ${localStorage.getItem("loginToken")}`,

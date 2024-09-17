@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { api_URL } from "../../redux/features/variables";
 
 function GroupForm() {
   const [groupName, setGroupName] = useState("");
@@ -85,7 +86,7 @@ function GroupForm() {
       icon: groupImageBinary ? btoa(String.fromCharCode(...new Uint8Array(groupImageBinary))) : "",
     };
 
-    fetch("150.230.233.10:8000", {
+    fetch(`http://${api_URL}/groups/groups`, {
       method: "POST",
       headers: {
         "accept": "application/json",
