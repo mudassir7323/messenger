@@ -18,28 +18,30 @@ function GroupJoin() {
     }
 
     setLoading(true); // Set loading to true
+    const token = localStorage.getItem("loginToken");
+
+    console.log(token);
 
     axios
       .post(
         `https://awful-rhinoceros-ayaani12-95861aee.koyeb.app/groups/join/${groupCode}`,
+        {},
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+            Authorization: `Bearer ${token}`,
             accept: "application/json",
           },
         }
       )
       .then((response) => {
         console.log(response.data);
-        // Handle successful response
         navigate("/home");
       })
       .catch((error) => {
         console.error(error);
-        // Handle error response
       })
       .finally(() => {
-        setLoading(false); // Set loading to false
+        setLoading(false);
       });
   };
 
