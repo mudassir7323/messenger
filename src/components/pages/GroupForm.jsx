@@ -85,7 +85,7 @@ function GroupForm() {
       icon: groupImageBinary ? btoa(String.fromCharCode(...new Uint8Array(groupImageBinary))) : "",
     };
 
-    fetch("https://awful-rhinoceros-ayaani12-95861aee.koyeb.app/groups/groups", {
+    fetch("150.230.233.10:8000", {
       method: "POST",
       headers: {
         "accept": "application/json",

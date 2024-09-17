@@ -28,7 +28,7 @@ function GroupList() {
 
   useEffect(() => {
     axios
-      .get("https://awful-rhinoceros-ayaani12-95861aee.koyeb.app/groups/", {
+      .get("150.230.233.10:8000", {
         headers: {
           accept: "application/json",
           Authorization: `Bearer ${localStorage.getItem("loginToken")}`,

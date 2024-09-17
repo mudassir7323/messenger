@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://awful-rhinoceros-ayaani12-95861aee.koyeb.app";
+const API_URL = "150.230.233.10:8000";
 
 export async function signUp({ username, email, password }) {
   try {
