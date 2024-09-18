@@ -2,7 +2,7 @@ import axios from "axios";
 import { api_URL } from "../redux/features/variables";
 
 
-const API_URL = api_URL || '//150.230.233.10:8000';
+const API_URL = api_URL || 'https://150.230.233.10:8000';
 
 console.log(API_URL);
 
