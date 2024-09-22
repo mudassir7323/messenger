@@ -1,1 +1,1 @@
-export const api_URL = 'http://141.148.201.56';
+export const api_URL = 'http://messenger-api.duckdns.org';
