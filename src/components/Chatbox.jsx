@@ -37,17 +37,6 @@ function Chatbox() {
     }
   };
 
-  // If no group is selected, render a message
-  if (!selectedGroup) {
-    return (
-      <div className="flex-1 bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 p-6 rounded-lg shadow-lg text-center text-white flex items-center justify-center">
-        <h2 className="text-2xl font-bold">No group selected</h2>
-        <br />
-        <p className="text-lg">Please select a group to start chatting</p>
-      </div>
-    );
-  }
-
   return (
     <div className="flex-1 bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col h-[calc(100vh-160px)]">
       {/* Chat Content */}

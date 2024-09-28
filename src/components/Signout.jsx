@@ -7,18 +7,18 @@ function Signout() {
 
     const handleSignOut = async () => {
         try {
-          await signOut();
-          navigate("/login");  // Redirect to the login page on successful logout
+            await signOut();
+            navigate("/login");  // Redirect to the login page on successful logout
         } catch (error) {
-          console.error("Sign-out failed:", error);
+            console.error("Sign-out failed:", error);
         }
-      };
+    };
 
     return (
-        <div>
+        <div className="flex justify-center">
             <button
                 onClick={handleSignOut}
-                className="bg-red-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-700 transition duration-300 ease-in-out"
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 ease-in-out transform hover:scale-105"
             >
                 Logout
             </button>
