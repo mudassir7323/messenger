@@ -1,0 +1,19 @@
+/* Add this CSS if needed for fixed positioning */
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Adjust z-index if necessary */
+  .z-50 {
+    z-index: 50;
+  }
+  
+  /* Make sure your main content allows for overlay */
+  .main-content {
+    position: relative;
+  }
+  

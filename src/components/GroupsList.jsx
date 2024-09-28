@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./scroller.css";
 import { api_URL } from "../redux/features/variables";
 import axios from "axios";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserPlus, FaUsers } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectedGroup } from "../redux/features/chatslice";
-import { setFilteredGroups } from "../redux/features/chatslice";
+import { setSelectedGroup, setFilteredGroups } from "../redux/features/chatslice";
+import Signout from "./Signout"; // Make sure to import your Signout component
 
 function GroupList() {
   const dispatch = useDispatch();
@@ -37,17 +36,22 @@ function GroupList() {
       })
       .then((response) => {
         dispatch(setFilteredGroups(response.data));
-        console.log(response.data);
-        
       })
       .catch((error) => {
         console.error("There was an error making the GET request:", error);
       });
-  }, []);
+  }, [dispatch]);
 
   return (
-    <div className="flex flex-col h-full p-2 bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300">
-      <div className="flex flex-col m-2 h-full overflow-y-scroll custom-scrollbar">
+    <div className="flex flex-col h-screen bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300">
+      {/* Header Section */}
+      <header className="flex items-center justify-between bg-gray-800 p-4 text-white">
+        <h1 className="text-xl font-bold">Groups</h1>
+        <Signout />
+      </header>
+
+      {/* Group List Section */}
+      <div className="flex flex-col flex-1 m-2 overflow-y-auto custom-scrollbar">
         {list.map((item, index) => (
           <div
             key={index}
@@ -62,10 +66,7 @@ function GroupList() {
               />
             ) : (
               <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 mr-3">
-                <CgProfile
-                  className="text-gray-500 dark:text-gray-400"
-                  size={48}
-                />
+                <CgProfile className="text-gray-500 dark:text-gray-400" size={48} />
               </div>
             )}
             <div className="flex flex-col">
@@ -79,6 +80,8 @@ function GroupList() {
           </div>
         ))}
       </div>
+
+      {/* Footer Section */}
       <div className="flex justify-between p-4 bg-gray-100 dark:bg-gray-900 border-t border-gray-300 dark:border-gray-700">
         <button
           onClick={handleCreateGroup}

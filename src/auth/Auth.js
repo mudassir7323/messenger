@@ -4,9 +4,6 @@ import { api_URL } from "../redux/features/variables";
 
 const API_URL = api_URL;
 
-console.log(API_URL);
-
-
 export async function signUp({ username, email, password }) {
   try {
     const response = await axios.post(`${API_URL}/users/signup`, {
@@ -27,7 +24,6 @@ export async function signUp({ username, email, password }) {
 export const signIn = async (credentials) => {
   try {
     const response = await axios.post(`${API_URL}/users/signin`, credentials);
-    console.log(response.data);
 
     localStorage.setItem("loginToken", response.data.access_token);
     return { success: true, token: response.data.access_token };
@@ -59,7 +55,6 @@ export const signOut = async () => {
       }
     );
 
-    console.log("Sign-out successful:", response.data);
     localStorage.removeItem("loginToken");
 
     return { success: true };
